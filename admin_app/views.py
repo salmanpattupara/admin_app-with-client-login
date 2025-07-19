@@ -23,7 +23,8 @@ def dashboard(request):
     client_count=Client.objects.all().count
     user_count = User.objects.all().count
     billing_count = ClientBilling.objects.all().count() 
-    total = ClientBilling.objects.aggregate(total_amount=Sum("totalAmount"))["total_amount"]
+    #total = ClientBilling.objects.aggregate(total_amount=Sum("totalAmount"))["total_amount"]
+    total=0
     context={
         "client_count":client_count,
         "user_count":user_count,
@@ -103,7 +104,8 @@ def invoicelist(request):
     invoices=ClientBilling.objects.all().order_by("created_at")
     active_count = ClientBilling.objects.filter(status=True).count()
     inactive_count = ClientBilling.objects.filter(status=False).count()   
-    total = ClientBilling.objects.aggregate(total_amount=Sum("totalAmount"))["total_amount"]
+    #total = ClientBilling.objects.aggregate(total_amount=Sum("totalAmount"))["total_amount"] or 0
+    total=0
     activePlan_count=ClientBilling.objects.filter(subscription__status="active").count()
     pendingPlan_count=ClientBilling.objects.filter(subscription__status="pending").count()
     context={
