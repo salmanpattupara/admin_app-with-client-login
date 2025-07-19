@@ -1,7 +1,7 @@
 # arriba_tech⚙️
 
 # 📊dashboard for along with client/customers
-**its an admin dashboard with login,logout feature,include separate account for clients and they can add their customer and tracke the activities,using django as backend,rest framewrok for API,and HTML,CSS as frontend**
+**its an admin dashboard with login,logout, and subscription feature,include separate account for clients and they can add their customer and track the activities,using django as backend,rest framewrok for API,and HTML,CSS as frontend**
 
 ## 📝installation
 - intall python
