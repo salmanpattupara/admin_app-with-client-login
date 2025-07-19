@@ -18,6 +18,11 @@
 - can add their customer data and service requirement
 - can generate invoices
 - can see their subscription and duration of subscription including latest plans
+## 🗝️highlights 
+- admin can define new subscription plans and its duration
+- if user opted one plan,then user cant login to their account after exceeding the plan duration(without an active plan)
+- only admin can create account for its clients
+- all the forms(input) are used as pop dialog so user friendly appearance 
 
   ## 🧑‍💻coded with
   - django
