@@ -1,0 +1,326 @@
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- Header-->
+<div class="content">
+            <div class="animated fadeIn">
+
+                 <!-- Widgets  -->
+                   {% if user.is_superuser or is_staff %}
+                    <div class="col-md-14 mb-4">
+                        <div class="card-group">
+                            <div class="card col-md-6 no-padding">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{subscriptionPlan.count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Total Plans</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-3" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-user-plus"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{active_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Active plans</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-comments-o"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{inactive_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Inactive plans</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row mb-4">
+    {% for myplan in myplans %}
+        <div class="col-md-6 col-sm-8 mb-3">
+            <div class="card shadow-sm border-0 rounded-lg h-100 gradient-card" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: #fff; min-height: 180px; max-width: 420px; margin: auto;">
+                <div class="card-header text-center py-2" style="background: rgba(0,0,0,0.10); border-bottom: none;">
+                    <h5 class="mb-0" style="font-weight: 600; letter-spacing: 1px; font-size: 1.1rem;">
+                        <i class="fa fa-diamond mr-2"></i> Your Subscription
+                    </h5>
+                </div>
+                <div class="card-body px-3 py-2">
+                    <ul class="list-group list-group-flush" style="background: transparent; font-size: 0.95rem;">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="background: transparent; color: #fff; padding: 0.4rem 0;">
+                            <span><i class="fa fa-star text-warning"></i> <b>Plan</b></span>
+                            <span class="font-weight-bold">{{ myplan.subscribedPlan }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="background: transparent; color: #fff; padding: 0.4rem 0;">
+                            <span><i class="fa fa-calendar text-primary"></i> <b>Start</b></span>
+                            <span>{{ myplan.subscriptionStart|date:"d-m-Y" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="background: transparent; color: #fff; padding: 0.4rem 0;">
+                            <span><i class="fa fa-calendar text-info"></i> <b>Expiry</b></span>
+                            <span>{{ myplan.subscriptionEnd|date:"d-m-Y" }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="background: transparent; color: #fff; padding: 0.4rem 0;">
+                            <span><i class="fa fa-clock-o text-info"></i> <b>Days Left</b></span>
+                            <span>
+                                {% if remaining_days is not None %}
+                                    <span class="badge badge-light px-2 py-1" style="font-size: 0.95rem;">{{ remaining_days }}</span>
+                                {% else %}
+                                    <span class="badge badge-secondary px-2 py-1">N/A</span>
+                                {% endif %}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" style="background: transparent; color: #fff; padding: 0.4rem 0;">
+                            <span><i class="fa fa-info-circle text-secondary"></i> <b>Status</b></span>
+                            <span>
+                                {% if myplan.is_active %}
+                                    <span class="badge badge-success px-2 py-1" style="font-size: 0.95rem;">{{myplan.status}}</span>
+                                {% else %}
+                                    <span class="badge badge-warning px-2 py-1" style="font-size: 0.95rem;">{{myplan.status}}</span>
+                                {% endif %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+            </div><div class="row mb-3">
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+                     <!-- Widgets  -->
+     <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            {% if user.is_superuser or is_staff %}
+                             <div >
+                                <h1><b>Subscription plan</b></h1>
+                            </div>
+                            {% else %}
+                             <div >
+                                <h1><b>other Plans</b></h1> </div>   
+                            {% endif %}
+                        </div>
+                          
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                 {% if user.is_superuser or is_staff %}
+                                <ol class="breadcrumb text-right">
+                                     <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#smallmodal" >
+                                        Add Plans
+                                    </button> 
+                                   
+                                </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+   
+    <div class="row mb-4">
+       {% for plan in subscriptionPlan %}
+        <div class="col-md-4 mb-3">
+            <div class="card border-primary ">
+                <div class="card-header bg-dark text-white text-center">
+                    <h5 class="mb-0">{{ plan.subscriptionName }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Validity:</strong> {{ plan.subscriptionValidity }}</p>
+                    <p><strong>Amount:</strong> {{ plan.subscriptionAmount }}</p>
+                    {% if user.is_superuser or is_staff %}
+                        {% if plan.is_active %}
+                            <span class="badge badge-success">
+                                Active
+                                </span> 
+                        {% else %} 
+                            <span class="badge badge-danger">
+                                inactive
+                            </span> 
+                        {% endif %}
+                                  <p> 
+                        <button class="btn btn-info btn-sm edit-btn float-right" data-id="{{plan.id }}">
+                            Edit
+                        </button></p>
+                     {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+   
+
+
+
+                 <!-- popup dialog  -->
+               <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            
+                            <h5 class="modal-title" id="smallmodalLabel">Add Plan</h5>
+                        </div>
+                        <div class="modal-body">  
+                        <div class="card">
+                                <div class="card-body card-block">
+                                    <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="name" class=" form-control-label">Plan Name</label>
+                                        <input type="text" name="subscriptionName" id="subscriptionName" class="form-control" />
+                                        <label for="validty" class=" form-control-label">plan validity</label>
+                                        <input type="text" name="subscriptionAmount" id="subscriptionAmount" class="form-control" />
+                                        <label for="price" class=" form-control-label">Price</label>
+                                        <input type="text" name="subscriptionValidity" id="subscriptionValidity" class="form-control" />
+                                        <label for="name" class=" form-control-label">is plan Active</label>
+                                        <input type="checkbox" name="is_active" id="is_active" class="switch-input" checked='true'> 
+                                        
+                                    </div> 
+                                    </div>
+                                    </div>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        
+                         </form>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+ <!-- pop up dialog  -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="smallmodalLabel">edit Plan{{plan.id}}</h5>
+                        </div>
+                        <div class="modal-body">  
+                        <div class="card">
+                                <div class="card-body card-block">
+                                    <form method="post" id="editForm">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" id="id" name="id">
+                                        {{form.id}}
+
+                                        <label for="edit_subscriptionName" class="form-control-label">Plan Name</label>
+                                        <input type="text" name="subscriptionName"  id="edit_subscriptionName" class="form-control" />
+                                        
+                                        <input type="hidden"  name="subscriptionAmount"  id="edit_subscriptionAmount" class="form-control" />
+                                       
+                                        <input type="hidden" name="subscriptionValidity"  id="edit_subscriptionValidity" class="form-control" />
+                                        <label for="edit_is_active" class="form-control-label">Is Plan Active</label>
+                                        <input type="checkbox" name="is_active" id="edit_is_active" class="switch-input" > 
+                                        
+                                    </div> 
+                                    </div>
+                                    </div>     
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">update</button>
+                        </div>
+                         </form>
+                    </div>
+                </div>
+            </div>
+
+
+                
+            </div><!-- .animated --> 
+        </div>
+           
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        const editModalEl = document.getElementById('editModal');
+        
+        let editModal;
+        if (editModalEl) {
+            editModal = new bootstrap.Modal(editModalEl);
+        }
+        const editForm = document.getElementById('editForm');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const itemId = button.getAttribute('data-id');
+                
+                fetch(`getsubscription/${itemId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                     
+                    // Populate form fields with fetched data
+                    // Make sure the input fields have correct IDs in your HTML
+                    document.getElementById('edit_subscriptionName').value = data.subscriptionName || '';
+                    document.getElementById('edit_subscriptionAmount').value = data.subscriptionAmount || '';
+                    document.getElementById('edit_subscriptionValidity').value = data.subscriptionValidity || '';
+                    document.getElementById('edit_is_active').checked = data.is_active || false;
+                    document.getElementById('id').value = data.id || '';
+                    // Handle checkbox for is_active
+                   
+                        // Populate other fields as needed
+                        if (editModal) {
+                            editModal.show();
+                        }
+                    });
+            });
+        });
+
+        if (editForm) {
+            editForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const itemId = document.getElementById('id').value;
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                fetch(`editsubscription/${itemId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams(new FormData(this))
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert("Error updating item: " + data.error);
+                    }
+                });
+            });
+        }
+    });
+</script>
+
+
+{% endblock %}

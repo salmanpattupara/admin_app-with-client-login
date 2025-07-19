@@ -1,0 +1,68 @@
+
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+
+   
+ <div class="content">
+    <div class="animated fadeIn">
+      <div style="flex:2;padding:0px 0px 0 12px;">
+          <span> <strong class="card-title">Account Overview</strong></span>
+      </div>
+
+
+
+ <!-- User Profile Card -->
+                      <div style="auto;font-family:Roboto,sans-serif;background:#fff;box-shadow:1 2px 8px rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;">
+                        <div style="display:flex;">
+                          <!-- Left Section -->
+                          <div style="flex:1;padding:32px 24px;text-align:center;border-right:1px solid #eee;">
+                            <img src="{% static 'images/admin.jpg' %}"  alt="Profile" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:16px;">
+                            <h2 style="margin:0 0 8px 0;font-size:1.5em;font-weight:500;">{{ request.user.first_name }} {{ request.user.last_name }} </h2>
+                            <div style="color:#888;font-size:0.95em;margin-bottom:16px;">Username: <b>{{ request.user.username}}</b></div>  
+                          </div>
+                          <!-- Right Section -->
+                          <div style="flex:2;padding:32px 32px 0 32px;">
+                            <!-- Official Information -->
+                            <div style="margin-bottom:32px;">
+                              <div style="font-weight:500;color:#888;margin-bottom:8px;">Official Information</div>
+                              <div style="display:flex;gap:32px;">
+                                <div>
+                                  <div style="font-weight:600;">Email</div>
+                                  <div style="color:#555;">{{ request.user.email}}</div>
+                                </div>
+                                <div>
+                                  <div style="font-weight:600;">client</div>
+                                  <div style="color:#555;">{{ request.user.client}}</div>
+                                </div>
+                                 <div>
+                                  <div style="font-weight:600;">phone</div>
+                                  <div style="color:#555;">{{ request.user.client.clientContactNumber }}</div>
+                                </div>
+                                
+                              </div>
+                            </div>
+
+
+              
+
+
+                            <div style="margin-bottom:32px;">
+                          <div style="display:flex;gap:32px;">
+                            <div>
+                              <div style="font-weight:600;">Address</div>
+                              <div style="color:#555;">{{ request.user.client.clientAddress }}</div>
+       
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+
+                   </div><!-- .animated --> 
+        </div><!-- .content --> 
+       
+ {% endblock %}

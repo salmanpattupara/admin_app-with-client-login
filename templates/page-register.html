@@ -1,0 +1,200 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body{
+    padding: 0;
+    margin: 0;
+    background: url(background.jpg)no-repeat;
+    background-size: cover;
+}
+        .form{
+    font-family: "Roboto", sans-serif;
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    opacity: 99%;
+    max-width: 600px;
+    margin: 200px auto 100px;
+    padding: 10px 45px 30px 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+}
+       .form p{
+    font-size: 20px;
+    padding: 1px;
+    text-align: center;
+}
+.form input{
+    outline: 0;
+    border-radius: 10px;
+    background: #F2F2F2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form input:hover{
+    background-color: #D3F8F9;
+    transition: all 1s ease 0s;
+}
+.form input:focus{
+    background-color: #D3F8F9;
+    transition: all 1s ease 0s;
+}
+        label {
+            text-align: left;
+            margin-bottom: 6px;
+            display: block;
+            color: #555;
+        }
+        .form button{
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background: #184D47;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+.form button:hover, .form button:active, .form button:focus{
+    background-color:rgb(37, 116, 106);
+    transition: all 1s ease 0s;
+}
+.form .message{
+    margin: 15px 0 0;
+    color: #B3B3B3;
+    font-size: 12px;
+}
+.form .message a{
+    color: #06C5CF;
+    text-decoration: none;
+}
+ select.form-control {
+    border-radius: 10px;
+    background: #F2F2F2;
+    border: none;   
+    padding: 15px;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: background-color 0.3s;
+                }
+    select.form-control:focus,                                        
+                                            /* Arrow styling for dropdown */
+    .col-12 select.form-control {
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg width='20' height='20' viewBox='0 0 20 20' fill='gray' xmlns='http://www.w3.org/2000/svg'><polygon points='5,7 10,12 15,7'/></svg>");
+    background-repeat: no-repeat;
+     background-position: right 15px center;
+     background-size: 18px 18px;
+               }
+     /* Remove default arrow in IE */
+  select.form-control::-ms-expand {
+    display: none;
+            }
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .col {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .col {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<head>
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 40px; margin-bottom: -150px;">
+        <img src="{% static 'images/arribalogo.png' %}" alt="Arriba Tech logo " style="width: 180px;">
+    </div>
+    <div class="form">
+    <p>Register</p>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+<br>
+            <div class="login-form">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col" style="padding-right: 10px;">
+                            <label>Username:</label>
+                            {{ form.username }}
+                            
+                            <label for="first_name" class=" form-control-label">first name</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" required />
+                           
+                            <label>Password:</label>
+                            {{ form.password1 }}
+                             <label>Client:</label>
+                            {{ form.client }}
+                            
+                            
+                        </div>
+                        <div class="col" style="padding-left: 10px;">
+                            
+                             <label for="email" class=" form-control-label">Email id</label>
+                            <input type="email" name="email" id="email" class="form-control" />
+                           
+                            
+                             <label for="first_name" class=" form-control-label">Last name:</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control" required />
+                           
+                            <label>Confirm Password:</label>
+                            {{ form.password2 }}
+                           
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" style="margin-top: 20px;">Register</button>
+                </form>
+            </div>
+
+                    <div style="margin-top: 25px;">
+                        {% for error in form.password2.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+
+                    {% for error in form.username.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                    </div>
+                   
+
+                    
+                      </div>
+                    </form>
+                </div>
+    </div>
+</body>
+</html>
+      

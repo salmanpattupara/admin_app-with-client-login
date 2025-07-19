@@ -1,0 +1,103 @@
+
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+
+   
+ <div class="content">
+    <div class="animated fadeIn">
+      <div style="flex:2;padding:0px 0px 0 12px;">
+          <span> <strong class="card-title">Overview</strong></span>
+      </div>
+
+           <!-- User Profile Card -->
+                      <div style="auto;font-family:Roboto,sans-serif;background:#fff;box-shadow:1 2px 8px rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;">
+                        <div style="display:flex;">
+                          <!-- Left Section -->
+                          <div style="flex:1;padding:32px 24px;text-align:center;border-right:1px solid #eee;">
+                            <img src="{% static 'images/admin.jpg' %}"  alt="Profile" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:16px;">
+                            <h2 style="margin:0 0 8px 0;font-size:1.5em;font-weight:500;">{{client.clientName}}</h2>
+                            <div style="color:#888;font-size:0.95em;margin-bottom:16px;">Member since: <b>{{client.created_at}}</b></div>  
+                          </div>
+                          <!-- Right Section -->
+                          <div style="flex:2;padding:32px 32px 0 32px;">
+                            <!-- Official Information -->
+                            <div style="margin-bottom:32px;">
+                              <div style="font-weight:500;color:#888;margin-bottom:8px;">Official Information</div>
+                              <div style="display:flex;gap:32px;">
+                                <div>
+                                  <div style="font-weight:600;">Email</div>
+                                  <div style="color:#555;">{{client.clientEmailId}}</div>
+                                </div>
+                                <div>
+                                  <div style="font-weight:600;">Phone Numer</div>
+                                  <div style="color:#555;">{{client.clientContactNumber}}</div>
+                                </div>
+                                 <div>
+                                  <div style="font-weight:600;">Place</div>
+                                  <div style="color:#555;">{{client.clientPlace}}</div>
+                                </div>
+                                
+                              </div>
+                            </div>
+
+                            <div style="margin-bottom:32px;">
+       
+                          <div style="display:flex;gap:32px;">
+                            <div>
+                              <div style="font-weight:600;">Address</div>
+                              <div style="color:#555;">{{client.clientAddress}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+
+
+                <div class="row">
+                   <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title"></strong>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                     <thead class="thead-dark">
+                                        <tr>
+                                            <th class="serial">#</th>
+                                      <th >Client name</th>
+                                      <th>Opted plan</th>
+                                      <th >Validity</th>
+                                      <th>Starting date</th>
+                                      <th>End date</th>
+                                      <th>Status</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                {% for subscriber in subscribers %}
+                                <tr>
+                                        <td class="serial">{{ forloop.counter }}</td>        
+                                        <td> {{subscriber.client}}</td>
+                                        <td>  <span class="name">{{subscriber.subscribedPlan}}</span> </td>
+                                        <td> <span class="product">{{subscriber.subscribedPlan.subscriptionValidity}}</span> </td>
+                                        <td>  <span class="name">{{subscriber.subscriptionStart}}</span> </td>
+                                        <td> <span class="product">{{subscriber.subscriptionEnd}}</span> </td>
+                                        <td>{% if subscriber.status == "active" %} <span class="badge badge-complete">{{subscriber.status}}</span> {% elif subscriber.status == "pending" %} <span class="badge badge-pending">{{subscriber.status}}</span> {% else %}<span class="badge badge-secondary">{{subscriber.status}}</span> {% endif %}</td>
+                                              
+                                        </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                            </table>
+                           </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+                
+      
+            </div><!-- .animated --> 
+        </div><!-- .content --> 
+       
+ {% endblock %}

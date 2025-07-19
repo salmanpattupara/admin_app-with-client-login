@@ -1,0 +1,130 @@
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+
+       <div class="content">
+            <div class="animated fadeIn">
+
+                 <!-- Widgets  -->
+                    <div class="col-md-14 mb-4">
+                        <div class="card-group">
+                            <div class="card col-md-6 no-padding">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{users.count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Total Users</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-3" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-user-plus"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{active_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Active</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-comments-o"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{inactive_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Inactive</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+               <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                             <div >
+                                <h1><b>UserList</b></h1>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                       <a href="{% url 'register' %}" class="btn btn-outline-warning btn-sm">
+                                        Add user
+                                    </a>  
+                                   
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                     <thead class="thead-dark">
+                                        <tr>
+                                            <th class="serial">#</th>
+                                           
+                                           
+                                            <th>Usernmae</th>
+                                            <th>first name</th>
+                                            <th>Last name</th>
+                                            <th>client</th>
+                                            <th>email id</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                       
+                                       
+                                        {% for user in users %}  
+                                        
+                                       
+                                        <tr>
+                                            <td class="serial">{{ forloop.counter }}</td>        
+                                           
+                                            <td> <a href= "{% url 'userDetails' user.client.id %}"> {{user.username}}</span></a></td>
+                                             <td>  <span class="name">{{user.first_name}}</span> </td>
+                                              <td>  <span class="name">{{user.last_name}}</span> </td>
+                                            <td> <span class="product">{{user.client}}</span> </td>
+                                            <td> <span class="product">{{user.email}}</span> </td>
+                                           
+                                            
+                                            <td>
+                                                 {% if user.is_active %}
+                                                <span class="badge badge-complete">active</span>
+                                                {% else %}
+                                                <span class="badge badge-pending">Inactive</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                         {% endfor %}
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+                 </div>
+            </div><!-- .animated --> 
+        </div><!-- .content --> 
+
+
+       {% endblock %}

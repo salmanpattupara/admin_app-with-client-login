@@ -1,0 +1,102 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<style>
+/*body background css*/
+body{
+    padding: 0;
+    margin: 0;
+    background: url(background.jpg)no-repeat;
+    background-size: cover;
+}
+
+/*login form css*/
+.form{
+    font-family: "Roboto", sans-serif;
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    opacity: 99%;
+    max-width: 360px;
+    margin: 200px auto 100px;
+    padding: 10px 45px 30px 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+}
+.form p{
+    font-size: 15px;
+    padding: 1px;
+    text-align: center;
+}
+.form input{
+    outline: 0;
+    border-radius: 10px;
+    background: #F2F2F2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form input:hover{
+    background-color: #D3F8F9;
+    transition: all 1s ease 0s;
+}
+.form input:focus{
+    background-color: #D3F8F9;
+    transition: all 1s ease 0s;
+}
+.form button{
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background: #184D47;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+.form button:hover, .form button:active, .form button:focus{
+    background-color: rgb(37, 116, 106);
+    transition: all 1s ease 0s;
+}
+.form .message{
+    margin: 15px 0 0;
+    color: #B3B3B3;
+    font-size: 12px;
+}
+.form .message a{
+    color: #06C5CF;
+    text-decoration: none;
+}
+</style>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 40px; margin-bottom: -150px;">
+        <img src="{% static 'images/arribalogo.png' %}" alt="Arriba Tech logo " style="width: 180px;">
+    </div>
+    <div class="form">
+    <p>Login</p>
+    <form method="post">
+         {% csrf_token %}
+        <input type="text" name="username" placeholder="username" required>
+        <input type="password" name="password" placeholder="password" required>
+        <button>login</button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+             <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    </div>
+</body>
+</html>
+      

@@ -1,0 +1,114 @@
+
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+
+   
+ <div class="content">
+    <div class="animated fadeIn">
+      <div style="flex:2;padding:0px 0px 0 12px;">
+          <span> <strong class="card-title">Billing Overviews</strong></span>
+      </div>
+
+           <!-- User Profile Card -->
+                      <div style="auto;font-family:Roboto,sans-serif;background:#fff;box-shadow:1 2px 8px rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;">
+                        <div style="display:flex;">
+                          <!-- Left Section -->
+                          <div style="flex:1;padding:32px 24px;text-align:center;border-right:1px solid #eee;">
+                            <img src="{% static 'images/admin.jpg' %}"  alt="Profile" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:16px;">
+                            <h2 style="margin:0 0 8px 0;font-size:1.5em;font-weight:500;">{{client.clientName}}</h2>
+                            <div style="color:#888;font-size:0.95em;margin-bottom:16px;">Member since: <b>{{client.created_at}}</b></div>  
+                          </div>
+                          <!-- Right Section -->
+                          <div style="flex:2;padding:32px 32px 0 32px;">
+                            <!-- Official Information -->
+                            <div style="margin-bottom:32px;">
+                              <div style="font-weight:500;color:#888;margin-bottom:8px;">Official Information</div>
+                              <div style="display:flex;gap:32px;">
+                                <div>
+                                  <div style="font-weight:600;">Email</div>
+                                  <div style="color:#555;">{{client.clientEmailId}}</div>
+                                </div>
+                                <div>
+                                  <div style="font-weight:600;">Phone Numer</div>
+                                  <div style="color:#555;">{{client.clientContactNumber}}</div>
+                                </div>
+                                 <div>
+                                  <div style="font-weight:600;">Place</div>
+                                  <div style="color:#555;">{{client.clientPlace}}</div>
+                                </div>
+                                
+                              </div>
+                            </div>
+
+                            <div style="margin-bottom:32px;">
+       
+                          <div style="display:flex;gap:32px;">
+                            <div>
+                              <div style="font-weight:600;">Address</div>
+                              <div style="color:#555;">{{client.clientAddress}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+
+
+                <div class="row">
+                   <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Billing</strong>
+                            </div>
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                     <thead class="thead-dark">
+                                        <tr>
+                                            <th class="serial">#</th>
+                                            <th>invoice number</th>
+                                            <th>client</th>
+                                            <th>subscribed plan</th>
+                                            <th>amount</th>
+                                            <th>plan </th>
+                                            <th>Payment Status</th>
+                                            <th>view/edit </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                         {% for invoice in invoices %} 
+                                        <tr>
+                                            <td class="serial">1.</td>        
+                                            <td> #54671 </td>
+                                            <td> <span class="name">{{invoice.client}}</span> </a></td>
+                                            <td> <span class="product">{{invoice.subscription.subscribedPlan}}</span> </td>
+                                            <td><span >{{invoice.subscription.subscribedPlan.subscriptionAmount}}</span></td>
+                                            
+                                             <td>{% if invoice.subscription.status == "active" %} 
+                                                        <span class="badge badge-complete">{{ invoice.subscription.status}} </span> 
+                                                {% elif invoice.subscription.status == "pending"  %} 
+                                                        <span class="badge badge-pending">{{ invoice.subscription.status}}</span> 
+                                                {% else  %} 
+                                                        <span class="badge badge-secondary">{{ invoice.subscription.status}}</span>{% endif %}</td>
+                                            <td>
+                                               <span class="badge badge-complete">paid  </span>
+                                            </td>
+                                             <td>
+                                               <span class="badge badge-info">view  </span>
+                                               <span class="badge badge-dark">edit  </span>
+                                            </td> 
+                                        </tr>
+                                        {% endfor %}
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated --> 
+        </div><!-- .content --> 
+       
+ {% endblock %}

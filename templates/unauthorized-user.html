@@ -1,0 +1,71 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unauthorized Access</title>
+    <style>
+        body {
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f8f9fa;
+            font-family: "Roboto", sans-serif;
+        }
+        .logo {
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-top: 40px; 
+            margin-bottom: 50px;
+        }
+        .unauthorized {
+             
+            font-size: 36px;
+            font-weight: bolder;
+            color:rgb(211, 104, 47);
+            text-align: center;
+        }
+
+        .btn{
+              
+             background-color:  #184D47;;
+            color: #fff;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.1);
+           
+        }
+        .btn:hover {
+    background-color:rgb(37, 116, 106);
+}
+    </style>
+  
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+</head>
+<body>
+        <div class="logo">
+        <img src="{% static 'images/arribalogo.png' %}" alt="Arriba Tech logo " style="width: 180px;">
+    
+        </div>
+    <div class="unauthorized">
+        Oops..! You are not authorized.
+    </div>
+    <div style="position: absolute; top: 30px; right: 40px;">
+        <a href="{% url 'logout' %}" class="btn">
+            Logout
+        </a>
+    </div>
+</body>
+</html>

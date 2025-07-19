@@ -1,0 +1,210 @@
+{% extends 'navbar-extend.html' %}
+{% load static %}
+
+{% block content %}
+
+       <div class="content">
+            <div class="animated fadeIn">
+
+               <!-- Widgets  -->
+                    <div class="col-md-14 mb-4">
+                        <div class="card-group">
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+
+                                    <div class="h4 mb-0">
+                                        <span >{{active_count}}</span>
+                                    </div>
+
+                                    <small class="text-muted text-uppercase font-weight-bold">Total</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-user-plus"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{active_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Paid</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-2" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-comments-o"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{inactive_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">pending</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Widgets  -->
+
+                        <div class="col-md-14 mb-4">
+                        <div class="card-group">
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+
+                                    <div class="h4 mb-0">
+                                        <span >{{total}}</span>
+                                    </div>
+
+                                    <small class="text-muted text-uppercase font-weight-bold">Total Amount</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-user-plus"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{activePlan_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">active plan </small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-2" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-comments-o"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{pendingPlan_count}}</span>
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">pending plan</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Widgets  -->
+
+                <div class="row">
+                   <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Billings</strong>
+                            </div>
+
+                            <div class="table-stats order-table ov-h">
+                                  {% if user.is_superuser or is_staff %}
+                                <table class="table ">
+                                     <thead class="thead-dark">
+                                        <tr>
+                                            <th class="serial">#</th>
+                                            <th>invoice number</th>
+                                            <th>client</th>
+                                            <th>subscribed plans</th>
+                                            <th>amount</th>
+                                            <th>plan Status</th>
+                                             <th>Payment Status</th>
+                                              <th>view/edit</th>
+                                             
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                         {% for invoice in invoices %} 
+                                        <tr>
+                                            <td class="serial">{{ forloop.counter }}</td>
+                                            <td> #54671 </td>
+                                            <td>  <a href="{% url 'invoiceDetails' invoice.client.id %}"> {{invoice.client}}</a></td>
+                                            <td> <span class="product">{{invoice.subscription.subscribedPlan}}</span> </td>
+                                            <td><span >{{invoice.totalAmount}}</span></td>
+                                            
+                                             <td>{% if invoice.subscription.status == "active" %} 
+                                                        <span class="badge badge-complete">{{ invoice.subscription.status}} </span> 
+                                                {% elif invoice.subscription.status == "pending"  %} 
+                                                        <span class="badge badge-pending">{{ invoice.subscription.status}}</span> 
+                                                {% else  %} 
+                                                        <span class="badge badge-secondary">{{ invoice.subscription.status}}</span>{% endif %}</td>
+                                            {% if invoice.status %}
+                                                        <td>
+                                               <span class="badge badge-complete">paid  </span>
+                                            </td>
+                                            {% else %}
+                                               <td>
+                                               <span class="badge badge-pending">pending  </span>
+                                            </td>
+                                            {% endif %}
+
+                                            <td>
+                                               <span class="badge badge-info">view  </span>
+                                               <span class="badge badge-dark">edit  </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                {% else %}
+
+                                <table class="table ">
+                                     <thead class="thead-dark">
+                                        <tr>
+                                            <th class="serial">#</th>
+                                            <th>invoice number</th>
+                                            <th>service</th>
+                                            <th>description</th>
+                                            <th>total</th>
+                                            
+                                             <th>status</th>
+                                              <th>view/edit</th>
+                                             
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                         {% for invoice in invoices %} 
+                                        <tr>
+                                            <td class="serial">{{ forloop.counter }}</td>
+                                            <td> #54671 </td>
+                                            <td> <span class="product">{{invoice.service.name}}</span> </td>
+                                             <td> <span class="product">{{invoice.description}}</span> </td>
+                                            <td><span >{{invoice.total}}</span></td>
+                                          
+                                           
+                                            
+                                         {% if invoice.paid %} 
+                                             <td>
+                                                        <span class="badge badge-pending">pending</span>     </td>
+                                                
+                                                {% else  %} 
+                                                 <td>
+                                                        <span class="badge badge-complete">paid</span>{% endif %}</td>
+                                            
+
+                                            <td>
+                                               <span class="badge badge-info">view  </span>
+                                             
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        
+                                    </tbody>
+                                </table>
+                                {% endif %}
+                            </div> <!-- /.table-stats -->
+                        </div>
+                    </div>
+                </div>
+                
+            </div><!-- .animated --> 
+        </div><!-- .content --> 
+
+
+       {% endblock %}
