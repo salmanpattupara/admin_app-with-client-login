@@ -1,6 +1,13 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 from admin_app.models import Client
+
+
+#validator for phone numer
+def validate_phone(value):
+    if not value.isdigit() or len(value) != 10:
+        raise ValidationError("phonenumber should be 10 digiti")
+
 
 # Create your models here.
 
@@ -8,7 +15,7 @@ class Customer(models.Model):
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     name=models.CharField(max_length=50)
     address=models.CharField(max_length=50)
-    contactNumber=models.CharField(max_length=10)
+    contactNumber=models.CharField(max_length=10,validators=[validate_phone],unique=True)
     emailId=models.EmailField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -283,8 +283,7 @@ def subscribers(request):
     }
     return render(request,"subscribers-list.html",context)
 
-
-@subscription_required
+@user_passes_test(lambda u: u.is_staff)
 def subscribersDetails(request,pk):
     
     client =Client.objects.get(id=pk)
