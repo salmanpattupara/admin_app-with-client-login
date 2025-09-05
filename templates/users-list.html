@@ -73,7 +73,7 @@
                 </div>
             
 
-
+                    {% if users %}
                             <div class="table-stats order-table ov-h">
                                 <table class="table ">
                                      <thead class="thead-dark">
@@ -119,6 +119,13 @@
                                     </tbody>
                                 </table>
                             </div> <!-- /.table-stats -->
+                            {% else %}
+                            <div class="page-header float-left">
+                             <div >
+                                <h1>No user</h1>
+                            </div>
+                        </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
